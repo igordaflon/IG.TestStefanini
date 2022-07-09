@@ -16,6 +16,7 @@ namespace IG.TestStefanini.Api.Configuration
 
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<ICidadeService, CidadeService>();
+            services.AddScoped<IPessoaService, PessoaService>();
 
             return services;
         }

@@ -13,9 +13,12 @@ namespace IG.TestStefanini.Api.ViewModels
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [StringLength(11, ErrorMessage = "O campo {0} precisa ter {1} caracteres")]
-        public string Documento { get; set; } = string.Empty;
+        public string Cpf { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int Idade { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public int CidadeId { get; set; }
     }
 }

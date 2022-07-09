@@ -25,10 +25,5 @@ namespace IG.TestStefanini.Business.Notificacoes
         {
             return _notificacoes.Any();
         }
-
-        List<Notificacao> INotificador.ObterNotificacoes()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

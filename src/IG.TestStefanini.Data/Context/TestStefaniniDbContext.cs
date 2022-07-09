@@ -5,7 +5,11 @@ namespace IG.TestStefanini.Data.Context
 {
     public class TestStefaniniDbContext : DbContext
     {
-        public TestStefaniniDbContext(DbContextOptions options) : base(options){ }
+        public TestStefaniniDbContext(DbContextOptions options) : base(options)
+        {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.AutoDetectChangesEnabled = false;
+        }
 
         public DbSet<Pessoa> Pessoa { get; set; } = default!;
         public DbSet<Cidade> Cidade { get; set; } = default!;

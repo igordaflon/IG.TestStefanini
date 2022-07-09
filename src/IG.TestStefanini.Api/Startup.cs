@@ -1,6 +1,8 @@
 ﻿using IG.TestStefanini.Api.Configuration;
 using IG.TestStefanini.Data.Context;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace IG.TestStefanini.Api
 {
@@ -22,9 +24,26 @@ namespace IG.TestStefanini.Api
 
             services.AddAutoMapper(typeof(Startup));
             services.ResolveDependencies();
+
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ReportApiVersions = true;
+            });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+
+            });
+
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TestStefanini.Api", Version = "v1" });
+            });
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment environment)
@@ -32,14 +51,17 @@ namespace IG.TestStefanini.Api
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestStefanini.Api v1"));
             }
 
             app.UseHttpsRedirection();
-
+            app.UseRouting();
             app.UseAuthorization();
 
-            app.MapControllers();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

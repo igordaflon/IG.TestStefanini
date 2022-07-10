@@ -17,10 +17,17 @@ namespace IG.TestStefanini.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddDbContext<TestStefaniniDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+            }));
 
             services.AddAutoMapper(typeof(Startup));
             services.ResolveDependencies();
@@ -54,9 +61,13 @@ namespace IG.TestStefanini.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestStefanini.Api v1"));
             }
 
+            app.UseCors("ApiCorsPolicy");
+
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+
+
 
             app.UseEndpoints(endpoints =>
             {

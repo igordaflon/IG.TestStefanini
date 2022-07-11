@@ -34,6 +34,16 @@ namespace IG.TestStefanini.Api.Controllers
             return cidade;
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<CidadeViewModel>> GetById(int id)
+        {
+            var cidade = _mapper.Map<CidadeViewModel>(await _cidadeRepository.ObterPorId(id));
+
+            if (cidade == null) return NotFound();
+
+            return cidade;
+        }
+
         [HttpPost]
         public async Task<ActionResult<CidadeViewModel>> Post(CidadeViewModel cidadeViewModel)
         {
@@ -41,7 +51,7 @@ namespace IG.TestStefanini.Api.Controllers
 
             await _cidadeService.Adicionar(_mapper.Map<Cidade>(cidadeViewModel));
 
-            return CustomResponse(cidadeViewModel);
+            return CustomResponse();
         }
 
         [HttpPut("{id:int}")]

@@ -9,7 +9,7 @@ namespace IG.TestStefanini.Business.Models.Validations
         {
             RuleFor(f => f.Nome)
                 .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
-                .Length(2, 300)
+                .Length(300)
                 .WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
 
             RuleFor(f => f.Cpf.Length).Equal(CpfValidacao.TamanhoCpf)
@@ -18,6 +18,9 @@ namespace IG.TestStefanini.Business.Models.Validations
                 .WithMessage("O documento fornecido é inválido.");
 
             RuleFor(f => f.Idade)
+                .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório");
+
+            RuleFor(f => f.CidadeId)
                 .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório");
         }
     }

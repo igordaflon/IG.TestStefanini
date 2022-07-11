@@ -47,10 +47,7 @@ namespace IG.TestStefanini.Api
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TestStefanini.Api", Version = "v1" });
-            });
+            services.AddSwaggerGen();
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment environment)

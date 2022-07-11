@@ -34,6 +34,16 @@ namespace IG.TestStefanini.Api.Controllers
             return pessoa;
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<PessoaViewModel>> GetById(int id)
+        {
+            var cidade = _mapper.Map<PessoaViewModel>(await _pessoaRepository.ObterPorId(id));
+
+            if (cidade == null) return NotFound();
+
+            return cidade;
+        }
+
         [HttpPost]
         public async Task<ActionResult<PessoaViewModel>> Post(PessoaViewModel pessoaViewModel)
         {

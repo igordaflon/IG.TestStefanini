@@ -7,7 +7,7 @@ namespace IG.TestStefanini.Business.Models.Validations
         public CidadeValidation()
         {
             RuleFor(f => f.Nome)
-                .NotEmpty().WithMessage("O campo {PropertyName} é obrigaatório")
+                .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
                 .Length(2, 200)
                 .WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
 
